@@ -1,4 +1,5 @@
-var LeafletLabel = L.Class.extend({
+// var LeafletLabel = L.Class.extend({
+var LeafletLabel = L.Layer.extend({
 
 	includes: L.Mixin.Events,
 
@@ -172,6 +173,14 @@ var LeafletLabel = L.Class.extend({
 		}
 
 		L.DomUtil.setPosition(container, pos);
+	},
+
+	_addClassName: function (className) {
+		this._container.classList.add(className);
+	},
+
+	_removeClassName: function (className) {
+		this._container.classList.remove(className);
 	},
 
 	_zoomAnimation: function (opt) {

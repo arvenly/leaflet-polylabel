@@ -202,6 +202,14 @@ var LeafletLabel = L.Layer.extend({
 		L.DomUtil.setPosition(container, pos);
 	},
 
+	_addClassName: function (className) {
+		this._container.classList.add(className);
+	},
+
+	_removeClassName: function (className) {
+		this._container.classList.remove(className);
+	},
+
 	_zoomAnimation: function (opt) {
 		var pos = this._map._latLngToNewLayerPoint(this._latlng, opt.zoom, opt.center).round();
 
@@ -497,7 +505,7 @@ L.Path.include({
 			this._showLabelAdded = true;
 		} */
 
-		this._showLabel({latlng: options.latlng});
+		this._showLabel({ latlng: options.latlng });
 
 		return this;
 	},
@@ -522,7 +530,9 @@ L.Path.include({
 	},
 
 	_showLabel: function (e) {
-		this.label.setLatLng(e.latlng);
+		if (e && e.latlng) {
+			this.label.setLatLng(e.latlng);
+		}
 		this._map.showLabel(this.label);
 	},
 

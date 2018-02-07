@@ -8,7 +8,7 @@ L.Path.include({
 
 		this.label.setContent(content);
 
-		if (!this._showLabelAdded) {
+		/* if (!this._showLabelAdded) {
 			this
 				.on('mouseover', this._showLabel, this)
 				.on('mousemove', this._moveLabel, this)
@@ -18,7 +18,9 @@ L.Path.include({
 				this.on('click', this._showLabel, this);
 			}
 			this._showLabelAdded = true;
-		}
+		} */
+
+		this._showLabel({ latlng: options.latlng });
 
 		return this;
 	},
@@ -43,7 +45,9 @@ L.Path.include({
 	},
 
 	_showLabel: function (e) {
-		this.label.setLatLng(e.latlng);
+		if (e && e.latlng) {
+			this.label.setLatLng(e.latlng);
+		}
 		this._map.showLabel(this.label);
 	},
 

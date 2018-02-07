@@ -119,7 +119,7 @@ exports.build = function (compsBase32, buildName) {
 	    outro = fs.readFileSync('src/outro.js', 'utf8'),
 	    newSrc = copy + intro + combineFiles(files) + outro,
 
-	    pathPart = 'dist/leaflet.label' + (buildName ? '-' + buildName : ''),
+	    pathPart = 'dist/label' + (buildName ? '-' + buildName : ''),
 	    srcPath = pathPart + '-src.js',
 
 	    oldSrc = loadSilently(srcPath),
