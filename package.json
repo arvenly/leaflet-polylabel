@@ -10,13 +10,19 @@
 	"dependencies": {
 		"gulp": "^3.9.1",
 		"jake": "^8.0.15",
-		"leaflet": "^0.7.7"
+		"leaflet": "^0.7.7",
+		"npm-watch": "^0.3.0"
 	},
 	"main": "dist/leaflet.label.js",
+
+  "watch": {
+    "build": "{src,test}/**/*.js"
+  },
 	"scripts": {
 		"test": "jake test",
 		"prepublish": "jake",
-		"build": "jake && gulp copy"
+		"build": "jake && gulp copy",
+    "watch": "npm-watch build"
 	},
 	"repository": {
 		"type": "git",

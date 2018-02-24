@@ -180,14 +180,14 @@ var LeafletLabel = L.Layer.extend({
 	_setPosition: function (pos) {
 		var map = this._map,
 			container = this._container,
-			centerPoint = map.latLngToContainerPoint(map.getCenter()),
-			labelPoint = map.layerPointToContainerPoint(pos),
-			direction = this.options.direction,
+			// centerPoint = map.latLngToContainerPoint(map.getCenter()),
+			// labelPoint = map.layerPointToContainerPoint(pos),
+			// direction = this.options.direction,
 			labelWidth = this._labelWidth,
 			offset = L.point(this.options.offset);
 
 		// position to the right (right or auto & needs to)
-		if (direction === 'right' || direction === 'auto' && labelPoint.x < centerPoint.x) {
+		/* if (direction === 'right' || direction === 'auto' && labelPoint.x < centerPoint.x) {
 			L.DomUtil.addClass(container, 'leaflet-label-right');
 			L.DomUtil.removeClass(container, 'leaflet-label-left');
 
@@ -197,8 +197,9 @@ var LeafletLabel = L.Layer.extend({
 			L.DomUtil.removeClass(container, 'leaflet-label-right');
 
 			pos = pos.add(L.point(-offset.x - labelWidth, offset.y));
-		}
-
+		} */
+		//将label移动到中心去
+		pos = pos.add(L.point(-offset.x - labelWidth * 0.5, offset.y - container.offsetHeight * 1.5));
 		L.DomUtil.setPosition(container, pos);
 	},
 
@@ -504,7 +505,9 @@ L.Path.include({
 			}
 			this._showLabelAdded = true;
 		} */
-
+		if (this._map) {
+			this._map.on("zoomend", this._mapZoomEnd, this);
+		}
 		this._showLabel({ latlng: options.latlng });
 
 		return this;
@@ -519,6 +522,10 @@ L.Path.include({
 				.off('mouseover', this._showLabel, this)
 				.off('mousemove', this._moveLabel, this)
 				.off('mouseout remove', this._hideLabel, this);
+			if (this._map) {
+				this._map.on("zoomend", this._mapZoomEnd, this);
+			}
+				
 		}
 		return this;
 	},
@@ -529,11 +536,19 @@ L.Path.include({
 		}
 	},
 
+	_mapZoomEnd: function () {
+		if (this.label) {
+			this.label._updatePosition();
+		}
+	},
+
 	_showLabel: function (e) {
 		if (e && e.latlng) {
 			this.label.setLatLng(e.latlng);
 		}
-		this._map.showLabel(this.label);
+		if (this._map) {
+			this._map.showLabel(this.label);
+		}
 	},
 
 	_moveLabel: function (e) {
