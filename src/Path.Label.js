@@ -19,9 +19,9 @@ L.Path.include({
 			}
 			this._showLabelAdded = true;
 		} */
-		if (this._map) {
+		/* if (this._map) {
 			this._map.on("zoomend", this._mapZoomEnd, this);
-		}
+		} */
 		this._showLabel({ latlng: options.latlng });
 
 		return this;
@@ -36,9 +36,9 @@ L.Path.include({
 				.off('mouseover', this._showLabel, this)
 				.off('mousemove', this._moveLabel, this)
 				.off('mouseout remove', this._hideLabel, this);
-			if (this._map) {
+			/* if (this._map) {
 				this._map.on("zoomend", this._mapZoomEnd, this);
-			}
+			} */
 				
 		}
 		return this;

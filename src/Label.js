@@ -159,6 +159,11 @@ var LeafletLabel = L.Layer.extend({
 			labelWidth = this._labelWidth,
 			offset = L.point(this.options.offset);
 
+		// console.log("---------------------------------------");
+		// console.log(labelWidth);
+		// console.log(offset);
+		// console.log(container.offsetHeight);
+
 		// position to the right (right or auto & needs to)
 		/* if (direction === 'right' || direction === 'auto' && labelPoint.x < centerPoint.x) {
 			L.DomUtil.addClass(container, 'leaflet-label-right');
@@ -172,7 +177,8 @@ var LeafletLabel = L.Layer.extend({
 			pos = pos.add(L.point(-offset.x - labelWidth, offset.y));
 		} */
 		//将label移动到中心去
-		pos = pos.add(L.point(-offset.x - labelWidth * 0.5, offset.y - container.offsetHeight * 1.5));
+		pos = pos.add(L.point(-offset.x - labelWidth * 0.5, offset.y - container.offsetHeight));
+		
 		L.DomUtil.setPosition(container, pos);
 	},
 
@@ -185,8 +191,8 @@ var LeafletLabel = L.Layer.extend({
 	},
 
 	_zoomAnimation: function (opt) {
+		// this._updatePosition();
 		var pos = this._map._latLngToNewLayerPoint(this._latlng, opt.zoom, opt.center).round();
-
 		this._setPosition(pos);
 	},
 
