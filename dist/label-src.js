@@ -35,7 +35,7 @@ var LeafletLabel = L.Layer.extend({
 		clickable: false,
 		direction: 'right',
 		noHide: false,
-		offset: [12, -15], // 6 (width of the label triangle) + 6 (padding)
+		offset: [0, 0], // 6 (width of the label triangle) + 6 (padding)
 		opacity: 1,
 		zoomAnimation: true
 	},
@@ -203,6 +203,7 @@ var LeafletLabel = L.Layer.extend({
 
 			pos = pos.add(L.point(-offset.x - labelWidth, offset.y));
 		} */
+
 		//将label移动到中心去
 		pos = pos.add(L.point(-offset.x - labelWidth * 0.5, offset.y - container.offsetHeight));
 		
