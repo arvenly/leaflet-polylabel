@@ -23,7 +23,6 @@ L.Path.include({
 			this._map.on("zoomend", this._mapZoomEnd, this);
 		} */
 		this._showLabel({ latlng: options.latlng });
-
 		return this;
 	},
 

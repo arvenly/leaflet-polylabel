@@ -10,14 +10,15 @@ var LeafletLabel = L.Layer.extend({
 		noHide: false,
 		offset: [0, 0], // 6 (width of the label triangle) + 6 (padding)
 		opacity: 1,
-		zoomAnimation: true
+		zoomAnimation: false,
 	},
 
 	initialize: function (options, source) {
 		L.setOptions(this, options);
 
 		this._source = source;
-		this._animated = L.Browser.any3d && this.options.zoomAnimation;
+		//this._animated = L.Browser.any3d && this.options.zoomAnimation;
+		this._animated = false;
 		this._isOpen = false;
 	},
 
@@ -42,10 +43,6 @@ var LeafletLabel = L.Layer.extend({
 		map
 			.on('moveend', this._onMoveEnd, this)
 			.on('viewreset', this._onViewReset, this);
-
-		if (this._animated) {
-			map.on('zoomanim', this._zoomAnimation, this);
-		}
 
 		if (L.Browser.touch && !this.options.noHide) {
 			L.DomEvent.on(this._container, 'click', this.close, this);
@@ -115,7 +112,8 @@ var LeafletLabel = L.Layer.extend({
 	},
 
 	_initLayout: function () {
-		this._container = L.DomUtil.create('div', 'leaflet-label ' + this.options.className + ' leaflet-zoom-animated');
+		// this._container = L.DomUtil.create('div', 'leaflet-label ' + this.options.className + ' leaflet-zoom-animated');
+		this._container = L.DomUtil.create('div', 'leaflet-label ' + this.options.className + ' ');
 		this.updateZIndex(this._zIndex);
 	},
 
@@ -184,11 +182,15 @@ var LeafletLabel = L.Layer.extend({
 	},
 
 	_addClassName: function (className) {
-		this._container.classList.add(className);
+		if (this._container) {
+			this._container.classList.add(className);
+		}
 	},
 
 	_removeClassName: function (className) {
-		this._container.classList.remove(className);
+		if (this._container) {
+			this._container.classList.remove(className);
+		}
 	},
 
 	_zoomAnimation: function (opt) {
