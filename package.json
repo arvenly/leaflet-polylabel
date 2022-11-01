@@ -4,11 +4,11 @@
 	"description": "Labels for leaflet maps",
 	"license": "MIT",
 	"devDependencies": {
-		"jshint": "~2.1.4",
+		"jshint": "~2.13.5",
 		"uglify-js": "~2.3.6"
 	},
 	"dependencies": {
-		"gulp": "^3.9.1",
+		"gulp": "^4.0.2",
 		"jake": "^8.0.15",
 		"leaflet": "^0.7.7",
 		"npm-watch": "^0.3.0"
